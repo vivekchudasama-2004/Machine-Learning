@@ -2,6 +2,7 @@ import os
 import pickle  # pre trained model loading
 import streamlit as st  # web app
 from streamlit import status
+from streamlit_option_menu import option_menu
 
 st.set_page_config(page_title='Prediction of Disease Outbreaks',
                    layout='wide',
@@ -13,7 +14,7 @@ parkinsons_model = pickle.load(open('Diseases_Prediction_Outbreak/training_model
 
 
 with st.sidebar :
-    st.selected = option_menu('Prediction of disease outbreak system',
+    selected = option_menu('Prediction of disease outbreak system',
                            ['Diabetes Prediction', 'Heart Disease Prediction', 'Parkinsons prediction'],
                            menu_icon='hospital-fill', icons=['activity', 'heart', 'person'], default_index=0)
 
