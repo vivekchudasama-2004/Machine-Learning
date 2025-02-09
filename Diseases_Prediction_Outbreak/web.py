@@ -8,9 +8,9 @@ st.set_page_config(page_title='Prediction of Disease Outbreaks',
                    layout='wide',
                    page_icon="🧑‍⚕️")
 
-diabetes_model = pickle.load(open(r"C:\Users\Vivek\PycharmProjects\Diseases Prediction Outbreak\training_models\diabetes_model.pkl", 'rb'))
-heart_disease_model = pickle.load(open(r"C:\Users\Vivek\PycharmProjects\Diseases_Prediction_Outbreak\training_models\heart_model.pkl", 'rb'))
-parkinsons_model = pickle.load(open(r"C:\Users\Vivek\PycharmProjects\Diseases_Prediction_Outbreak\training_models\parkinson.pkl", 'rb'))
+diabetes_model = pickle.load(open('Diseases_Prediction_Outbreak/training_models/diabetes_model.pkl', 'rb'))
+heart_disease_model = pickle.load(open('Diseases_Prediction_Outbreak/training_models/heart_model.pkl', 'rb'))
+parkinsons_model = pickle.load(open('Diseases_Prediction_Outbreak/training_models/parkinson.pkl', 'rb'))
 
 
 with st.sidebar :
