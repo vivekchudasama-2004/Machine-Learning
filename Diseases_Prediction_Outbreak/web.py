@@ -3,9 +3,65 @@ import pickle  # pre-trained model loading
 import streamlit as st  # web app framework
 
 # Set page configuration
-st.set_page_config(page_title='Prediction of Disease Outbreaks', layout='wide', page_icon="🧑‍⚕️")
+st.set_page_config(page_title='Prediction of Disease Outbreaks',
+                   layout='wide',
+                   page_icon="🧑‍⚕️")
 
-# Custom CSS for styling
+# --- Custom CSS to improve the sidebar UI and remove extra white space ---
+st.markdown(
+    """
+    <style>
+    /* Style the entire sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #2E2E2E;
+        padding-top: 0;
+        border: none;
+    }
+    /* Remove extra margin/padding on the sidebar navigation */
+    [data-testid="stSidebarNav"] {
+         margin-top: 0rem;
+    }
+    /* Custom header for the sidebar */
+    .sidebar-header {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        color: #ffffff;
+        padding: 15px 0;
+        background-color: #1A1A1A;
+        border-bottom: 2px solid #4CAF50;
+        border-radius: 0 0 10px 10px;
+        margin-bottom: 20px;
+    }
+    /* Custom text style for sidebar content */
+    .sidebar-content {
+        font-size: 16px;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px 5px;
+    }
+    /* Style for the radio buttons container */
+    .stRadio > label {
+        color: #ffffff; 
+        font-size: 16px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# --- Sidebar Section with Improved UI ---
+with st.sidebar:
+    st.markdown('<div class="sidebar-header">Disease Prediction System</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sidebar-content">Select Prediction Type</div>', unsafe_allow_html=True)
+    
+    # The radio button is styled by our custom CSS; no label text so that our header text remains.
+    selected = st.radio("", 
+                        ['Diabetes Prediction', 'Heart Disease Prediction', 'Parkinsons Prediction'], 
+                        index=0)
+    
+    st.markdown('<div class="sidebar-content">This tool uses pre-trained ML models to predict disease risk.</div>', unsafe_allow_html=True)
+
+# --- Main Content Section ---
+# Use a main container with a styled background if desired
 st.markdown("""
     <style>
     .main-container {
@@ -14,17 +70,11 @@ st.markdown("""
         border-radius: 10px;
         margin: 10px 0px;
     }
-    .stButton>button {
-        background-color: #4CAF50;
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 5px;
-    }
     </style>
     """, unsafe_allow_html=True)
+st.markdown("<div class='main-container'>", unsafe_allow_html=True)
 
-# Construct dynamic paths for the models based on the current file's directory
+# Construct dynamic paths for model files based on the current file’s directory
 current_dir = os.path.dirname(__file__)
 diabetes_model_path = os.path.join(current_dir, "training_models", "diabetes_model.pkl")
 heart_model_path = os.path.join(current_dir, "training_models", "heart_model.pkl")
@@ -38,17 +88,7 @@ with open(heart_model_path, "rb") as f:
 with open(parkinson_model_path, "rb") as f:
     parkinsons_model = pickle.load(f)
 
-# Sidebar selection
-with st.sidebar:
-    st.markdown("<h2> Disease Prediction System </h2>", unsafe_allow_html=True)
-    selected = st.radio("Select Prediction Type", 
-                         ['Diabetes Prediction', 'Heart Disease Prediction', 'Parkinsons Prediction'])
-    st.markdown("---")
-    st.write("This tool uses pre-trained ML models to predict disease risk.")
-
-# Begin main container for the app content
-st.markdown("<div class='main-container'>", unsafe_allow_html=True)
-
+# --- App Content Based on Selected Prediction Type ---
 if selected == 'Diabetes Prediction':
     st.header('Diabetes Prediction using ML')
     st.info("Please fill in the details below and click on Submit.")
@@ -185,8 +225,8 @@ elif selected == 'Parkinsons Prediction':
 
     if submitted_parkinson:
         try:
-            user_input = [Fo, Fhi, Flo, Jitter, Jitterabs, Rap, Ppq, DDp, Shimmer, Shimmers, APQ3,
-                          APQ5, APQ, DDA, NHR, HNR, stat, RPDE, DFA, spread1, spread2, D2]
+            user_input = [Fo, Fhi, Flo, Jitter, Jitterabs, Rap, Ppq, DDp, Shimmer, Shimmers,
+                          APQ3, APQ5, APQ, DDA, NHR, HNR, stat, RPDE, DFA, spread1, spread2, D2]
             user_input = [float(x) for x in user_input]
             park_prediction = parkinsons_model.predict([user_input])
             if park_prediction[0] == 1:
