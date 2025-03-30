@@ -8,13 +8,13 @@ st.set_page_config(page_title='Prediction of Disease Outbreaks',
                    page_icon="🧑‍⚕️")
 
 # Load pre-trained models
-diabetes_model = pickle.load(open("../Diseases_Prediction_Outbreak/training_models/diabetes_model.pkl", "rb"))
-heart_disease_model = pickle.load(open("training_models/heart_model.pkl", "rb"))
-parkinsons_model = pickle.load(open("training_models/parkinson.pkl", "rb"))
+diabetes_model = pickle.load(open("Diseases_Prediction_Outbreak/training_models/diabetes_model.pkl", "rb"))
+heart_disease_model = pickle.load(open("Diseases_Prediction_Outbreak/training_models/heart_model.pkl", "rb"))
+parkinsons_model = pickle.load(open("Diseases_Prediction_Outbreak/training_models/parkinson.pkl", "rb"))
 
 # Create a sidebar selection using Streamlit's radio button
 selected = st.sidebar.radio("Prediction of disease outbreak system", 
-                              ['Diabetes Prediction', 'Heart Disease Prediction', 'Parkinsons prediction'])
+                            ['Diabetes Prediction', 'Heart Disease Prediction', 'Parkinsons prediction'])
 
 if selected == 'Diabetes Prediction':
     st.title('Diabetes Prediction using ML')
@@ -35,7 +35,7 @@ if selected == 'Diabetes Prediction':
         DiabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function value')
     with col2:
         Age = st.text_input('Age of the person')
-    
+
     diab_diagnosis = ''
     if st.button('Diabetes Test Result'):
         user_input = [Pregnancies, Glucose, Bloodpressure, SkinThickness, Insulin,
@@ -82,8 +82,8 @@ elif selected == 'Heart Disease Prediction':
     if st.button('Heart Disease Test Result'):
         user_input = [Age, Sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slop, ca, thal]
         user_input = [float(x) for x in user_input]
-        hert_prediction = heart_disease_model.predict([user_input])
-        if hert_prediction[0] == 1:
+        heart_prediction = heart_disease_model.predict([user_input])
+        if heart_prediction[0] == 1:
             heart_diagnosis = 'The person has Heart Disease'
         else:
             heart_diagnosis = 'The person does not have any Heart Disease'
@@ -125,7 +125,6 @@ elif selected == 'Parkinsons prediction':
     with col1:
         HNR = st.text_input('HNR')
     with col2:
-        # Renamed variable from 'status' to 'stat' to avoid conflicts with reserved names.
         stat = st.text_input('Status')
     with col3:
         RPDE = st.text_input('RPDE')
@@ -137,7 +136,7 @@ elif selected == 'Parkinsons prediction':
         spread2 = st.text_input('Spread2')
     with col1:
         D2 = st.text_input('D2')
-    
+
     park_diagnosis = ''
     if st.button('Parkinsons Test Result'):
         user_input = [Fo, Fhi, Flo, Jitter, Jitterabs, Rap, Ppq, DDp, Shimmer, Shimmers, APQ3,
