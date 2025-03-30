@@ -59,20 +59,6 @@ with st.sidebar:
     
     st.markdown('<div class="sidebar-content">This tool uses pre-trained ML models to predict disease risk.</div>', unsafe_allow_html=True)
 
-# --- Main Content Section ---
-# Use a main container with a styled background if desired
-st.markdown("""
-    <style>
-    .main-container {
-        background-color: #F5F5F5;
-        padding: 25px;
-        border-radius: 10px;
-        margin: 10px 0px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-st.markdown("<div class='main-container'>", unsafe_allow_html=True)
-
 # Construct dynamic paths for model files based on the current file’s directory
 current_dir = os.path.dirname(__file__)
 diabetes_model_path = os.path.join(current_dir, "training_models", "diabetes_model.pkl")
