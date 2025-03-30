@@ -5,15 +5,6 @@ import streamlit as st  # web app framework
 # Set page configuration
 st.set_page_config(page_title='Prediction of Disease Outbreaks', layout='wide', page_icon="🧑‍⚕️")
 
-# Hide Streamlit header and footer for a cleaner look
-hide_streamlit_style = """
-            <style>
-            header {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
 # Custom CSS for styling
 st.markdown("""
     <style>
