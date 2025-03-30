@@ -26,7 +26,6 @@ st.markdown(
         font-size: 24px;
         font-weight: bold;
         text-align: center;
-        color: #ffffff;
         padding: 15px 0;
         background-color: #1A1A1A;
         border-bottom: 2px solid #4CAF50;
